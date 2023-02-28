@@ -27,5 +27,5 @@ trap onexit EXIT
 echo "Writing key $KEY_NAME to temporary file $TEMP_CERT_FILE"
 lpass show "$KEY_NAME" --field="Private Key" > "$TEMP_CERT_FILE"
 echo "Adding SSH key $KEY_NAME"
-eval `ssh-agent -s`
+eval $(ssh-agent)
 ssh-add "$TEMP_CERT_FILE"
