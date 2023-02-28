@@ -13,7 +13,7 @@ readonly TEMP_CERT_FILE
 onexit() {
 	local EXIT_CODE=$?
 	echo "Removing temporary file $TEMP_CERT_FILE"
-	rm "$TEMP_CERT_FILE"
+	# rm "$TEMP_CERT_FILE"
     if [[ $EXIT_CODE == 0 ]]; then
         echo "lpass-add: identity added successfully"
 	else
@@ -25,6 +25,6 @@ onexit() {
 trap onexit EXIT
 
 echo "Writing key $KEY_NAME to temporary file $TEMP_CERT_FILE"
-lpass show --notes "$KEY_NAME" > "$TEMP_CERT_FILE"
+lpass show "$KEY_NAME" --field="Public Key" > "$TEMP_CERT_FILE"
 echo "Adding SSH key $KEY_NAME"
 ssh-add "$TEMP_CERT_FILE"
